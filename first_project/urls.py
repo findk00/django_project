@@ -20,4 +20,5 @@ import first_app.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', first_app.views.home, name='home'),
+    path('new/', first_app.views.new, name='new'),
 ]
