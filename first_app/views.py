@@ -31,14 +31,22 @@ def update(request, blog_id):
     blog = Blog.objects.get(id=blog_id)
 
     if request.method == "POST":
-        blog.title = request.POST['title']
-        blog.body = request.POST['body']
-        blog.pub_date = timezone.datetime.now()
-        blog.save()
-        return redirect('/first_app/detail/' + str(blog.id))
-
+        form = BlogUpdate(request.POST)
+        if form.is_valid():
+            blog.title = form.cleaned_data['title']
+            blog.body = form.cleaned_data['body']
+            blog.pub_date = timezone.now()
+            blog.save()
+            return redirect('/first_app/detail/' + str(blog.id))
     else:
-        return render(request, 'update.html')
+        form = BlogUpdate(instance = blog)
+        return render(request, 'update.html', {'form':form})
+
+
+def delete(request, blog_id):
+    blog = Blog.objects.get(id=blog_id)
+    blog.delete()
+    return redirect('/')
 
 
 def new(request):
