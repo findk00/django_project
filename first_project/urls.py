@@ -23,4 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', first_app.views.home, name='home'),
     path('first_app/', include('first_app.urls')),
+    path('first_member/', include('first_member.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
